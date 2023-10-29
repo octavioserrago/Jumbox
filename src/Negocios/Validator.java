@@ -1,6 +1,4 @@
 package Negocios;
-
-
 import java.sql.Date;
 
 import javax.swing.JOptionPane;
@@ -27,6 +25,25 @@ public class Validator {
                 return true; 
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+                return false;
+            }
+        }
+    }
+    
+    public boolean ValidarIngresoProducto(String descripcion,int cantidad, double precioUnitario) {
+        if (descripcion.length() == 0) {
+        	
+            JOptionPane.showMessageDialog(null, "Descripcion vacía");
+            return false;
+        } else {
+            Verificador1.setDescripcion(descripcion);
+            Verificador1.setCantidad(cantidad);
+            Verificador1.setPrecioUnitario(precioUnitario);
+           
+            if (Verificador1.insertProduct()) {
+                return true; 
+            } else {
+                
                 return false;
             }
         }

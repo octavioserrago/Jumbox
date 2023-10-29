@@ -131,6 +131,31 @@ public class Producto {
             return false;
         }
     }
+	
+	public boolean deleteProduct(int productId) {
+	    String sql = "DELETE FROM Producto WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se elimino el producto correctamente");
+	            return true;
+	        } else {
+	        	JOptionPane.showMessageDialog(null, "No se elimino el producto correctamente");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al eliminar Producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
+	
 
 
 

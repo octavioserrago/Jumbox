@@ -45,20 +45,24 @@ public class Main {
 							switch (opcion) {
 						
 							case "Ingresar Producto":
-								String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del producto:");
-							    int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del producto:"));
-							    double precioUnitario = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio unitario del producto:"));
+							    try {
+							        String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del producto:");
+							        int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del producto:"));
+							        double precioUnitario = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio unitario del producto:"));
 
-							    
-							    Producto nuevoProducto = new Producto(descripcion, cantidad, precioUnitario);
-							    boolean insercionExitosa = nuevoProducto.insertProduct();
-
-							    if (insercionExitosa) {
-							        JOptionPane.showMessageDialog(null, "Producto ingresado exitosamente");
-							    } else {
-							        JOptionPane.showMessageDialog(null, "Error al ingresar el producto");
+							        Producto nuevoProducto = new Producto(descripcion, cantidad, precioUnitario);
+							        boolean insercionExitosa = validator.ValidarIngresoProducto(descripcion, cantidad, precioUnitario);
+							        if (insercionExitosa) {
+							            JOptionPane.showMessageDialog(null, "Producto ingresado exitosamente");
+							        } else {
+							            JOptionPane.showMessageDialog(null, "Error al ingresar el producto. Asegúrese de que la descripción no esté vacía.");
+							        }
+							    } catch (Exception ex) {
+							        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
 							    }
-								break;
+							    break;
+
+
 								
 							case "Buscar Producto":
 								int productIdToSearch = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id de producto que desea buscar")); 
@@ -70,6 +74,26 @@ public class Main {
 					                JOptionPane.showMessageDialog(null, "Busqueda erronea");
 					            }
 					            break;
+					            
+							case "Eliminar Producto":
+								int consulta;
+								int productIdToSearch1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id de producto que desea buscar")); 
+					            boolean busquedaValida1 = validator.ValidarBusqueda(productIdToSearch1);
+					            Producto productoEncontrado1 = validator.getVerificador1();
+					            if (busquedaValida1) {
+					            	JOptionPane.showMessageDialog(null, "Producto encontrado! " + productoEncontrado1.toString());
+					            	consulta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese: \n1  -> Para Borrar Producto \n2 -> Para cancelar"));
+					            	
+					            	if (consulta==1) {
+					            		productoEncontrado1.deleteProduct(productIdToSearch1);
+									}
+					            	
+					            	break;
+					            } else {
+					                JOptionPane.showMessageDialog(null, "Busqueda erronea");
+					            }
+					            break;
+					            
 							  
 
 								
