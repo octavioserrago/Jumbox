@@ -14,5 +14,5 @@ public class Camion {
     private Date añoFabricacion;
     private String placa;
     private String estado; 
-    private LinkedList<Pedido> cargasTransportadas; 
+ 
 }
