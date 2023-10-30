@@ -1,6 +1,6 @@
 package IU;
 
-import java.util.LinkedList;
+
 
 public class Proveedor {
 	
@@ -12,7 +12,7 @@ public class Proveedor {
 	private String categoria;
 	private String numeroCuentaBancaria;
 	private int tiempoEntregaPromedioEnDias;
-	private LinkedList<Producto> productosSuministrados;
+
 	
 	public Proveedor(int id, String nombre, String direccion, String telefono, String correoElectronico,
 			String categoria, String numeroCuentaBancaria, int tiempoEntregaPromedioEnDias) {
@@ -84,28 +84,21 @@ public class Proveedor {
 		this.numeroCuentaBancaria = numeroCuentaBancaria;
 	}
 
-	public int getTiempoEntregaPromedioEnDias() {
-		return tiempoEntregaPromedioEnDias;
-	}
-
-	public void setTiempoEntregaPromedioEnDias(int tiempoEntregaPromedioEnDias) {
-		this.tiempoEntregaPromedioEnDias = tiempoEntregaPromedioEnDias;
-	}
+	
 
 	
 
 	@Override
 	public String toString() {
 	    return "Proveedor {" +
-	           "\n  id=" + id +
-	           "\n  nombre='" + nombre + '\'' +
-	           "\n  direccion='" + direccion + '\'' +
-	           "\n  telefono='" + telefono + '\'' +
-	           "\n  correoElectronico='" + correoElectronico + '\'' +
-	           "\n  categoria='" + categoria + '\'' +
-	           "\n  numeroCuentaBancaria='" + numeroCuentaBancaria + '\'' +
-	           "\n  tiempoEntregaPromedioEnDias=" + tiempoEntregaPromedioEnDias +
-	           "\n}";
+	           "\n  ID: " + id +
+	           "\n  Nombre: " + nombre +
+	           "\n  Direccion: " + direccion +
+	           "\n  Telefono: " + telefono +
+	           "\n  Correo Electronico: " + correoElectronico +
+	           "\n  Categoria: " + categoria +
+	           "\n  Numero de Cuenta Bancaria: " + numeroCuentaBancaria +
+	           "\n  Tiempo de Entrega Promedio En Dias: " + tiempoEntregaPromedioEnDias;
 	}
 
 	
