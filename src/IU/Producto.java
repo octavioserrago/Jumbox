@@ -10,69 +10,104 @@ import DATA.DatabaseConnection;
 public class Producto {
 	private int id;
 	private String descripcion;
+	private String marca;
 	private int cantidad;
-	private double precioUnitario;
+	private double precioCosto;
+	private double precioVentaUnitaria;
 	private Date created_at;
 	private Date last_modified;
 	
 	
-	public Producto(String descripcion, int cantidad, double precioUnitario) {
+	
+	public Producto(String descripcion, String marca, int cantidad, double precioCosto, double precioVentaUnitaria) {
 		super();
-		this.id = id;
 		this.descripcion = descripcion;
+		this.marca = marca;
 		this.cantidad = cantidad;
-		this.precioUnitario = precioUnitario;
-		
+		this.precioCosto = precioCosto;
+		this.precioVentaUnitaria = precioVentaUnitaria;
 	}
+	
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
+	public String getMarca() {
+		return marca;
+	}
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
 
 	public int getCantidad() {
 		return cantidad;
 	}
 
+
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	public double getPrecioUnitario() {
-		return precioUnitario;
+
+	public double getPrecioCosto() {
+		return precioCosto;
 	}
 
-	public void setPrecioUnitario(double precioUnitario) {
-		this.precioUnitario = precioUnitario;
+
+	public void setPrecioCosto(double precioCosto) {
+		this.precioCosto = precioCosto;
 	}
-	
+
+
+	public double getPrecioVentaUnitaria() {
+		return precioVentaUnitaria;
+	}
+
+
+	public void setPrecioVentaUnitaria(double precioVentaUnitaria) {
+		this.precioVentaUnitaria = precioVentaUnitaria;
+	}
+
+
 	public Date getCreated_at() {
 		return created_at;
 	}
 
+
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
+
+
 	public Date getLast_modified() {
 		return last_modified;
 	}
 
+
 	public void setLast_modified(Date last_modified) {
 		this.last_modified = last_modified;
 	}
-	
+
 	DatabaseConnection con = new DatabaseConnection();
 
     Connection conexion = con.conectar();
@@ -80,27 +115,26 @@ public class Producto {
 	PreparedStatement stmt;
 	
 	public boolean insertProduct() {
-	    String sql = "INSERT INTO Producto (id, descripcion, cantidad, precioUnitario) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO Producto (id, descripcion, marca, cantidad, precioCosto, precioVentaUnitaria) VALUES (?, ?, ?, ?, ?, ?)";
 
-	    try {
-	        stmt = conexion.prepareStatement(sql);
+		try {
+			stmt = conexion.prepareStatement(sql);
 
-	        stmt.setInt(1, this.getId());
-	        stmt.setString(2, this.getDescripcion());
-	        stmt.setInt(3, this.getCantidad());
-	        stmt.setDouble(4, this.getPrecioUnitario());
-	        
+			stmt.setInt(1, this.getId());
+			stmt.setString(2, this.getDescripcion());
+			stmt.setString(3, this.getMarca());
+			stmt.setInt(4, this.getCantidad());
+			stmt.setDouble(5, this.getPrecioCosto());
+			stmt.setDouble(6, this.getPrecioVentaUnitaria());
 
-	        
-	        int rowsAffected = stmt.executeUpdate();
+			int rowsAffected = stmt.executeUpdate();
 
-	        
-	        return rowsAffected > 0;
-	        
-	    } catch (Exception e) {
-	        System.out.println("Error al insertar Producto: " + e.getMessage());
-	        return false;
-	    }
+			return rowsAffected > 0;
+
+		} catch (Exception e) {
+			System.out.println("Error al insertar Producto: " + e.getMessage());
+			return false;
+		}
 	}
 
 	
@@ -116,8 +150,10 @@ public class Producto {
             if (resultSet.next()) {
                 this.setId(resultSet.getInt("id"));
                 this.setDescripcion(resultSet.getString("descripcion"));
+                this.setMarca(resultSet.getString("marca"));
                 this.setCantidad(resultSet.getInt("cantidad"));
-                this.setPrecioUnitario(resultSet.getDouble("precioUnitario"));
+                this.setPrecioCosto(resultSet.getDouble("precioCosto"));
+                this.setPrecioVentaUnitaria(resultSet.getDouble("precioVentaUnitaria"));
                 this.setCreated_at(resultSet.getDate("created_at"));
                 this.setLast_modified(resultSet.getDate("last_modified"));
 
@@ -154,27 +190,24 @@ public class Producto {
 	        return false;
 	    }
 	}
-	
-	
-
-
-
-
-	
-
 
 
 	@Override
 	public String toString() {
-	    return "Producto [\n" +
-	           "  ID: " + id + ",\n" +
-	           "  Descripción: " + descripcion + ",\n" +
-	           "  Cantidad: " + cantidad + ",\n" +
-	           "  Precio Unitario: " + precioUnitario + "\n" +
-	           "  Creado el: " + created_at + "\n" +
-	           "  Ultima actualizacion: " + last_modified + "\n" +
-	           "]";
+	    return 
+	           "\n  ID: " + id +
+	           "\n  Descripcion: " + descripcion +
+	           "\n  Marca: " + marca +
+	           "\n  Cantidad: " + cantidad +
+	           "\n  Precio de Costo: " + precioCosto +
+	           "\n  Precio de Venta Unitaria: " + precioVentaUnitaria +
+	           "\n  Fecha de creacion: " + created_at +
+	           "\n  Fecha de Ultima Modificacion: " + last_modified;
 	}
+
+	
+	
+
 	
 	
 

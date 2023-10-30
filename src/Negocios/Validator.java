@@ -7,7 +7,7 @@ import IU.User;
 
 public class Validator {
     User Verificador = new User("","",0);
-    Producto Verificador1 = new Producto("",0,0);
+    Producto Verificador1 = new Producto("",null, 0,0, 0);
     
     
 
@@ -30,15 +30,17 @@ public class Validator {
         }
     }
     
-    public boolean ValidarIngresoProducto(String descripcion,int cantidad, double precioUnitario) {
+    public boolean ValidarIngresoProducto(String descripcion,String marca,int cantidad, double precioCosto, double precioVentaUnitaria) {
         if (descripcion.length() == 0) {
         	
             JOptionPane.showMessageDialog(null, "Descripcion vacía");
             return false;
         } else {
             Verificador1.setDescripcion(descripcion);
+            Verificador1.setMarca(marca);
             Verificador1.setCantidad(cantidad);
-            Verificador1.setPrecioUnitario(precioUnitario);
+            Verificador1.setPrecioCosto(precioCosto);
+            Verificador1.setPrecioVentaUnitaria(precioVentaUnitaria);
            
             if (Verificador1.insertProduct()) {
                 return true; 
