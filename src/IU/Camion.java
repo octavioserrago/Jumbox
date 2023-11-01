@@ -1,8 +1,14 @@
 package IU;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
+import DATA.DatabaseConnection;
 
 public class Camion {
 	
@@ -11,14 +17,14 @@ public class Camion {
     private String marca;
     private int capacidadCargaKg;
     private String tipoCombustible;
-    private Date añoFabricacion;
+    private int añoFabricacion;
     private String placa;
     private String estado;
     
-	public Camion(int id, String modelo, String marca, int capacidadCargaKg, String tipoCombustible,
-			Date añoFabricacion, String placa, String estado) {
+	public Camion(String modelo, String marca, int capacidadCargaKg, String tipoCombustible,
+			int añoFabricacion, String placa, String estado) {
 		super();
-		this.id = id;
+		
 		this.modelo = modelo;
 		this.marca = marca;
 		this.capacidadCargaKg = capacidadCargaKg;
@@ -68,11 +74,11 @@ public class Camion {
 		this.tipoCombustible = tipoCombustible;
 	}
 
-	public Date getAñoFabricacion() {
+	public int getAñoFabricacion() {
 		return añoFabricacion;
 	}
 
-	public void setAñoFabricacion(Date añoFabricacion) {
+	public void setAñoFabricacion(int añoFabricacion) {
 		this.añoFabricacion = añoFabricacion;
 	}
 
@@ -103,6 +109,57 @@ public class Camion {
 	           "\n  añoFabricacion: " + añoFabricacion +
 	           "\n  placa: " + placa +
 	           "\n  estado: " + estado;
+	}
+	
+	DatabaseConnection con = new DatabaseConnection();
+
+    Connection conexion = con.conectar();
+	
+	PreparedStatement stmt;
+	
+	public boolean insertCamion() {
+		String sql = "INSERT INTO Camion (modelo,marca,capacidadCargaKg,tipoCombustible,anioFabricacion,placa,estado) VALUES (?,?,?,?,?,?,?)";
+		
+		try {
+			stmt = conexion.prepareStatement(sql);
+			
+			stmt.setString(1, this.getModelo());
+			stmt.setString(2, this.getMarca());
+			stmt.setInt(3, this.getCapacidadCargaKg());
+			stmt.setString(4, this.getTipoCombustible());
+			stmt.setInt(5, this.getAñoFabricacion());
+			stmt.setString(6, this.getPlaca());
+			stmt.setString(7,this.getEstado());
+			
+			int rowsAffected = stmt.executeUpdate();
+			return rowsAffected > 0;
+		} catch (Exception e) {
+			System.out.println("Error al insertar Camion: "+ e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean deleteCamion(int camionId, String placa) {
+		String sql = "DELETE FROM Camion  WHERE id = ? and placa = ?";
+		
+		try {
+			stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, camionId);
+			stmt.setString(2, placa);
+			
+			int rowsAffected = stmt.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el camion");
+				return true;
+			} else {
+				JOptionPane.showMessageDialog(null, "No se ha podido eliminar el camion");
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("Error al insertar Camion: "+ e.getMessage());
+			return false;
+		}
 	}
 
 

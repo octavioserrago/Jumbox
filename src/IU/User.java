@@ -71,6 +71,23 @@ public class User {
 	
 	PreparedStatement stmt;
 	
+	public boolean insertUserVendedor() {
+		String sql = "INSERT INTO users (email,password,role_id) VALUES (?,?,?)";
+		
+		try {
+			stmt = conexion.prepareStatement(sql);
+			stmt.setString(1, this.getEmail());
+			stmt.setString(2, this.getPassword());
+			stmt.setInt(3, this.getRole_id());
+			
+			int rowsAffected = stmt.executeUpdate();
+			return rowsAffected > 0;
+		} catch (Exception e) {
+			System.out.println("Error al Registrarse: "+ e.getMessage());
+			return false;
+		}
+	}
+	
 	public boolean find() {
 	    String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND role_id = ?";
 	    
@@ -85,10 +102,10 @@ public class User {
 	        
 	       
 	        if (resultSet.next()) {
-	            // El usuario fue encontrado
+	            
 	            return true;
 	        } else {
-	            // No se encontró el usuario
+	            
 	            return false;
 	        }
 	        

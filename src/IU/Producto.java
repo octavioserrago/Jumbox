@@ -190,6 +190,129 @@ public class Producto {
 	        return false;
 	    }
 	}
+	
+	public boolean updateProductDescription(int productId, String newDescription) {
+	    String sql = "UPDATE Producto SET descripcion = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setString(1, newDescription);
+	        stmt.setInt(2, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se actualizó la descripción del producto correctamente");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo actualizar la descripción del producto");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar la descripción del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
+	public boolean updateProductMarca(int productId, String newMarca) {
+	    String sql = "UPDATE Producto SET marca = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setString(1, newMarca);
+	        stmt.setInt(2, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se actualizó la marca del producto correctamente");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo actualizar la marca del producto");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar la marca del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
+	public boolean updateProductCantidad(int productId, int newCantidad) {
+	    String sql = "UPDATE Producto SET cantidad = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, newCantidad);
+	        stmt.setInt(2, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se actualizó la cantidad del producto correctamente");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo actualizar la cantidad del producto");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar la cantidad del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+	public boolean updateProductPrecioCosto(int productId, double newPrecioCosto) {
+	    String sql = "UPDATE Producto SET precio_costo = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setDouble(1, newPrecioCosto);
+	        stmt.setInt(2, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se actualizó el precio de costo del producto correctamente");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo actualizar el precio de costo del producto");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar el precio de costo del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
+	
+	public boolean updateProductPrecioVenta(int productId, double newPrecioVenta) {
+	    String sql = "UPDATE Producto SET precio_venta = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setDouble(1, newPrecioVenta);
+	        stmt.setInt(2, productId);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            JOptionPane.showMessageDialog(null, "Se actualizó el precio de venta del producto correctamente");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se pudo actualizar el precio de venta del producto");
+	            return false;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar el precio de venta del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
+
+
+
 
 
 	@Override
