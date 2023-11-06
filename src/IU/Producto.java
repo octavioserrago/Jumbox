@@ -12,19 +12,19 @@ public class Producto {
 	private String descripcion;
 	private String marca;
 	private int cantidad;
-	private double precioCosto;
+	private double precioCostoUnitario;
 	private double precioVentaUnitaria;
 	private Date created_at;
 	private Date last_modified;
 	
 	
 	
-	public Producto(String descripcion, String marca, int cantidad, double precioCosto, double precioVentaUnitaria) {
+	public Producto(String descripcion, String marca, int cantidad, double precioCostoUnitario, double precioVentaUnitaria) {
 		super();
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.cantidad = cantidad;
-		this.precioCosto = precioCosto;
+		this.precioCostoUnitario = precioCostoUnitario;
 		this.precioVentaUnitaria = precioVentaUnitaria;
 	}
 	
@@ -69,13 +69,13 @@ public class Producto {
 	}
 
 
-	public double getPrecioCosto() {
-		return precioCosto;
+	public double getPrecioCostoUnitario() {
+		return precioCostoUnitario;
 	}
 
 
-	public void setPrecioCosto(double precioCosto) {
-		this.precioCosto = precioCosto;
+	public void setPrecioCostoUnitario(double precioCostoUnitario) {
+		this.precioCostoUnitario = precioCostoUnitario;
 	}
 
 
@@ -115,7 +115,7 @@ public class Producto {
 	PreparedStatement stmt;
 	
 	public boolean insertProduct() {
-		String sql = "INSERT INTO Producto (id, descripcion, marca, cantidad, precioCosto, precioVentaUnitaria) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Producto (id, descripcion, marca, cantidad, precioCostoUnitario, precioVentaUnitaria) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			stmt = conexion.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class Producto {
 			stmt.setString(2, this.getDescripcion());
 			stmt.setString(3, this.getMarca());
 			stmt.setInt(4, this.getCantidad());
-			stmt.setDouble(5, this.getPrecioCosto());
+			stmt.setDouble(5, this.getPrecioCostoUnitario());
 			stmt.setDouble(6, this.getPrecioVentaUnitaria());
 
 			int rowsAffected = stmt.executeUpdate();
@@ -152,7 +152,7 @@ public class Producto {
                 this.setDescripcion(resultSet.getString("descripcion"));
                 this.setMarca(resultSet.getString("marca"));
                 this.setCantidad(resultSet.getInt("cantidad"));
-                this.setPrecioCosto(resultSet.getDouble("precioCosto"));
+                this.setPrecioCostoUnitario(resultSet.getDouble("precioCostoUnitario"));
                 this.setPrecioVentaUnitaria(resultSet.getDouble("precioVentaUnitaria"));
                 this.setCreated_at(resultSet.getDate("created_at"));
                 this.setLast_modified(resultSet.getDate("last_modified"));
@@ -322,7 +322,7 @@ public class Producto {
 	           "\n  Descripcion: " + descripcion +
 	           "\n  Marca: " + marca +
 	           "\n  Cantidad: " + cantidad +
-	           "\n  Precio de Costo: " + precioCosto +
+	           "\n  Precio de Costo: " + precioCostoUnitario +
 	           "\n  Precio de Venta Unitaria: " + precioVentaUnitaria +
 	           "\n  Fecha de creacion: " + created_at +
 	           "\n  Fecha de Ultima Modificacion: " + last_modified;

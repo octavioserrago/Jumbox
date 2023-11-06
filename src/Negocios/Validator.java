@@ -55,22 +55,20 @@ public class Validator {
         }
     }
     
-    public boolean ValidarIngresoProducto(String descripcion,String marca,int cantidad, double precioCosto, double precioVentaUnitaria) {
-        if (descripcion.length() == 0) {
-        	
-            JOptionPane.showMessageDialog(null, "Descripcion vacía");
+    public boolean ValidarIngresoProducto(String descripcion, String marca, int cantidad, double precioCostoUnitario, double precioVentaUnitaria) {
+        if (descripcion.length() == 0 || marca.length() == 0 || precioCostoUnitario == 0 || precioVentaUnitaria == 0) {
+            JOptionPane.showMessageDialog(null, "Ningún campo puede estar vacío o ser cero");
             return false;
         } else {
             Verificador1.setDescripcion(descripcion);
             Verificador1.setMarca(marca);
             Verificador1.setCantidad(cantidad);
-            Verificador1.setPrecioCosto(precioCosto);
+            Verificador1.setPrecioCostoUnitario(precioCostoUnitario);
             Verificador1.setPrecioVentaUnitaria(precioVentaUnitaria);
-           
+
             if (Verificador1.insertProduct()) {
-                return true; 
+                return true;
             } else {
-                
                 return false;
             }
         }
@@ -105,28 +103,30 @@ public class Validator {
 	}
 	
 	
-	public boolean ValidarIngresoProveedor (String nombre, String direccion, String telefono, 
-			String correoElectronico, String categoria, String numeroCuentaBancaria, int tiempoEntregaPromedioEnDias )
-	{
-		if (nombre.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Nombre vacio. Por favor ingrese uno");
-			return false;
-		} else {
-			Verificador2.setNombre(nombre);
-			Verificador2.setDireccion(direccion);
-			Verificador2.setTelefono(telefono);
-			Verificador2.setCorreoElectronico(correoElectronico);
-			Verificador2.setCategoria(categoria);
-			Verificador2.setNumeroCuentaBancaria(numeroCuentaBancaria);
-			Verificador2.setTiempoEntregaPromedioEnDias(tiempoEntregaPromedioEnDias);
-			
-			if (Verificador2.insertProveedor()) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+	public boolean ValidarIngresoProveedor(String nombre, String direccion, String telefono, 
+	        String correoElectronico, String categoria, String numeroCuentaBancaria, int tiempoEntregaPromedioEnDias) {
+	    if (nombre.length() == 0 || direccion.length() == 0 || telefono.length() == 0 ||
+	            correoElectronico.length() == 0 || categoria.length() == 0 || numeroCuentaBancaria.length() == 0 ||
+	            tiempoEntregaPromedioEnDias == 0) {
+	        JOptionPane.showMessageDialog(null, "Ningún campo puede estar vacío o ser cero");
+	        return false;
+	    } else {
+	        Verificador2.setNombre(nombre);
+	        Verificador2.setDireccion(direccion);
+	        Verificador2.setTelefono(telefono);
+	        Verificador2.setCorreoElectronico(correoElectronico);
+	        Verificador2.setCategoria(categoria);
+	        Verificador2.setNumeroCuentaBancaria(numeroCuentaBancaria);
+	        Verificador2.setTiempoEntregaPromedioEnDias(tiempoEntregaPromedioEnDias);
+	        
+	        if (Verificador2.insertProveedor()) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 	}
+
 	
 	public boolean ValidarBusquedaProveedorId(int proveedorId) {
         Verificador2.setId(proveedorId);
@@ -139,27 +139,32 @@ public class Validator {
             return false;
         }
     }
-	public boolean ValidarIngresoCamion (String modelo, String marca, int capacidadCargaKg, 
-			String tipoCombustible, int añoFabricacion, String placa, String estado ) {
-		if (placa.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Ingrese una placa valida");
-			return false;
-		} else {
-			Verificador3.setModelo(modelo);
-			Verificador3.setMarca(marca);
-			Verificador3.setCapacidadCargaKg(capacidadCargaKg);
-			Verificador3.setTipoCombustible(tipoCombustible);
-			Verificador3.setAñoFabricacion(añoFabricacion);
-			Verificador3.setPlaca(placa);
-			Verificador3.setEstado(estado);
-			
-			if (Verificador3.insertCamion()) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+	
+	
+	public boolean ValidarIngresoCamion(String modelo, String marca, int capacidadCargaKg, 
+	        String tipoCombustible, int añoFabricacion, String placa, String estado) {
+	    if (placa.length() == 0 || modelo.length() == 0 || marca.length() == 0 ||
+	            capacidadCargaKg == 0 || tipoCombustible.length() == 0 || añoFabricacion == 0 ||
+	            estado.length() == 0) {
+	        JOptionPane.showMessageDialog(null, "Ningún campo puede estar vacío o ser cero");
+	        return false;
+	    } else {
+	        Verificador3.setModelo(modelo);
+	        Verificador3.setMarca(marca);
+	        Verificador3.setCapacidadCargaKg(capacidadCargaKg);
+	        Verificador3.setTipoCombustible(tipoCombustible);
+	        Verificador3.setAñoFabricacion(añoFabricacion);
+	        Verificador3.setPlaca(placa);
+	        Verificador3.setEstado(estado);
+	        
+	        if (Verificador3.insertCamion()) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 	}
+
     
     
     

@@ -68,11 +68,10 @@ public class Main {
 							        String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del producto:");
 							        String marca = JOptionPane.showInputDialog("Ingrese la Marca del producto:");
 							        int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del producto:"));
-							        double precioCosto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio de costo por la cantidad:"));
+							        double precioCostoUnitario = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio de costo unitario:"));
 							        double precioVentaUnitaria = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio de venta Unitaria:"));
-
-							        Producto nuevoProducto = new Producto(descripcion, marca, cantidad, precioCosto, precioVentaUnitaria);
-							        boolean insercionExitosa = validator.ValidarIngresoProducto(descripcion, marca,cantidad, precioCosto, precioVentaUnitaria);
+							        Producto nuevoProducto = new Producto(descripcion, marca, cantidad, precioCostoUnitario, precioVentaUnitaria);
+							        boolean insercionExitosa = validator.ValidarIngresoProducto(descripcion, marca,cantidad, precioCostoUnitario, precioVentaUnitaria);
 							        if (insercionExitosa) {
 							            JOptionPane.showMessageDialog(null, "Producto ingresado exitosamente");
 							        } else {
