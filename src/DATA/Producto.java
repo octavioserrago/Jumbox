@@ -1,11 +1,10 @@
-package IU;
+package DATA;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import DATA.DatabaseConnection;
 
 public class Producto {
 	private int id;

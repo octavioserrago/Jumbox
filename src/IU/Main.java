@@ -4,7 +4,9 @@ import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
-
+import DATA.Camion;
+import DATA.Producto;
+import DATA.Proveedor;
 import Negocios.Validator;
 
 public class Main {

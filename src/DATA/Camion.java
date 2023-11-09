@@ -1,4 +1,4 @@
-package IU;
+package DATA;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
-
-import DATA.DatabaseConnection;
 
 public class Camion {
 	

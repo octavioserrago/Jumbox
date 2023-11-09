@@ -1,4 +1,4 @@
-package IU;
+package DATA;
 
 public class Pedido {
 	

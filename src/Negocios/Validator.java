@@ -3,10 +3,10 @@ import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
-import IU.Camion;
-import IU.Producto;
-import IU.Proveedor;
-import IU.User;
+import DATA.Camion;
+import DATA.Producto;
+import DATA.Proveedor;
+import DATA.User;
 
 public class Validator {
     User Verificador = new User("","",0);
@@ -49,7 +49,7 @@ public class Validator {
             if (Verificador.find()) {
                 return true; 
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+                
                 return false;
             }
         }
