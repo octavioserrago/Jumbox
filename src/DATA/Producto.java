@@ -4,6 +4,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 public class Producto {
@@ -135,6 +139,9 @@ public class Producto {
 			return false;
 		}
 	}
+	
+	
+
 
 	
 	public boolean findProductById(int productId) {

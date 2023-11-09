@@ -105,8 +105,6 @@ public class PantallaLogin extends JFrame {
 		lblNewLabel_2.setVisible(false); 
 
 		
-		
-		
 		JButton btnNewButton_2 = new JButton("Salir");
 		btnNewButton_2.setBounds(171, 208, 117, 29);
 		contentPane.add(btnNewButton_2);
@@ -134,6 +132,9 @@ public class PantallaLogin extends JFrame {
 				Validator validator = new Validator();
 		        if (validator.ValidarIngreso(email, password, rol)) {
 		            
+		        	PantallaHome HomeFrame = new PantallaHome();
+			        HomeFrame.setVisible(true);
+			        dispose();
 		            
 		        } else {
 		        	lblNewLabel_2.setVisible(true);

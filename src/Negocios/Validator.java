@@ -15,8 +15,8 @@ public class Validator {
     Camion Verificador3 = new Camion("","",0,"",0,"","");
    
     public boolean ValidarRegistro(String email, String password, int role_id) {
-        if (email.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Email vacío");
+    	if (email.length() == 0 || password.length() == 0 || email.matches("^[0-9]+$")) {
+            JOptionPane.showMessageDialog(null, "Asegurese de completar todos los campos");
             return false;
         } else {
             Verificador.setEmail(email);
