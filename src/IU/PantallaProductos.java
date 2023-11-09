@@ -53,23 +53,21 @@ public class PantallaProductos extends JFrame {
 
         table = new JTable();
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(6, 58, 561, 271);
+        scrollPane.setBounds(6, 58, 588, 271);
         contentPane.add(scrollPane);
 
-        JScrollBar scrollBar = new JScrollBar();
-        scrollBar.setBounds(579, 58, 15, 271);
-        contentPane.add(scrollBar);
+        
 
         JButton btnNewButton = new JButton("Ingresar Producto");
-        btnNewButton.setBounds(32, 6, 138, 29);
+        btnNewButton.setBounds(6, 6, 138, 29);
         contentPane.add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("Buscar Producto");
-        btnNewButton_1.setBounds(211, 6, 126, 29);
+        btnNewButton_1.setBounds(156, 6, 126, 29);
         contentPane.add(btnNewButton_1);
 
         JButton btnNewButton_2 = new JButton("Eliminar Producto");
-        btnNewButton_2.setBounds(405, 6, 137, 29);
+        btnNewButton_2.setBounds(457, 6, 137, 29);
         contentPane.add(btnNewButton_2);
 
         JButton btnNewButton_3 = new JButton("Volver");
@@ -109,6 +107,18 @@ public class PantallaProductos extends JFrame {
         }
 
         table.setModel(model);
+        
+        JButton btnNewButton_4 = new JButton("Modificar Producto");
+        btnNewButton_4.setBounds(294, 6, 148, 29);
+        contentPane.add(btnNewButton_4);
+        
+        btnNewButton_4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PantallaModificarProducto modificarProductosFrame = new PantallaModificarProducto();
+                modificarProductosFrame.setVisible(true);
+                dispose();
+            }
+        });
 
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
