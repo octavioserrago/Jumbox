@@ -45,11 +45,11 @@ public class PantallaPedidos extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Ingresar Compra");
-		btnNewButton.setBounds(184, 82, 134, 29);
+		btnNewButton.setBounds(174, 66, 134, 29);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Ingresar Venta");
-		btnNewButton_1.setBounds(191, 123, 117, 29);
+		btnNewButton_1.setBounds(184, 96, 117, 29);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -60,6 +60,10 @@ public class PantallaPedidos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(174, 202, 117, 29);
 		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Historial de Pedidos");
+		btnNewButton_3.setBounds(153, 127, 170, 29);
+		contentPane.add(btnNewButton_3);
 		
 		 btnNewButton_2.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
