@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DATA.Camion;
 import DATA.DatabaseConnection;
+import DATA.Proveedor;
 import Negocios.Validator;
 
 import javax.swing.JButton;
@@ -55,6 +56,85 @@ public class PantallaCamiones extends JFrame {
         JButton btnNewButton_1 = new JButton("Modificar Dato de Camion");
         btnNewButton_1.setBounds(352, 179, 194, 29);
         contentPane.add(btnNewButton_1);
+        
+        Validator validator = new Validator();
+        
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String opcion3;
+                int camionIdToSearch2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id de camion que desea buscar")); 
+                boolean busquedaValida5 = validator.ValidarBusquedaCamionId(camionIdToSearch2);
+
+                if (busquedaValida5) {
+                	Camion camionEncontrado = validator.getVerificador3();
+                    JOptionPane.showMessageDialog(null, "Camion encontrado! " + camionEncontrado.toString());
+
+                    String[] opcionesCamion = {"Modelo", "Marca", "Capacidad de Carga", "Tipo de Combustible",
+                            "Año de Fabricacion", "Placa", "Estado", "Salir"};
+                    opcion3 = (String) JOptionPane.showInputDialog(null, "Elija el valor que desea editar", null, 0, null,
+                            opcionesCamion, opcionesCamion[0]);
+
+                    switch (opcion3) {
+                        case "Modelo":
+                            String nuevoModelo = JOptionPane.showInputDialog("Ingrese el nuevo modelo del camion");
+                            if (!nuevoModelo.isEmpty()) {
+                                camionEncontrado.updateCamionModelo(camionIdToSearch2, nuevoModelo);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El valor no puede ser un texto vacío");
+                            }
+                            break;
+                        case "Marca":
+                            String nuevaMarca = JOptionPane.showInputDialog("Ingrese la nueva marca del camion");
+                            if (!nuevaMarca.isEmpty()) {
+                                camionEncontrado.updateCamionMarca(camionIdToSearch2, nuevaMarca);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El valor no puede ser un texto vacío");
+                            }
+                            break;
+                        case "Capacidad de Carga":
+                            double nuevaCapacidad = Double
+                                    .parseDouble(JOptionPane.showInputDialog("Ingrese la nueva capacidad de carga del camion"));
+                            camionEncontrado.updateCamionCapacidadCarga(camionIdToSearch2, nuevaCapacidad);
+                            break;
+                        case "Tipo de Combustible":
+                            String nuevoTipoCombustible = JOptionPane.showInputDialog("Ingrese el nuevo tipo de combustible del camion");
+                            if (!nuevoTipoCombustible.isEmpty()) {
+                                camionEncontrado.updateCamionTipoCombustible(camionIdToSearch2, nuevoTipoCombustible);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El valor no puede ser un texto vacío");
+                            }
+                            break;
+                        case "Año de Fabricacion":
+                            int nuevoAnioFabricacion = Integer
+                                    .parseInt(JOptionPane.showInputDialog("Ingrese el nuevo año de fabricación del camion"));
+                            camionEncontrado.updateCamionAnioFabricacion(camionIdToSearch2, nuevoAnioFabricacion);
+                            break;
+                        case "Placa":
+                            String nuevaPlaca = JOptionPane.showInputDialog("Ingrese la nueva placa del camion");
+                            if (!nuevaPlaca.isEmpty()) {
+                                camionEncontrado.updateCamionPlaca(camionIdToSearch2, nuevaPlaca);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El valor no puede ser un texto vacío");
+                            }
+                            break;
+                        case "Estado":
+                            String nuevoEstado = JOptionPane.showInputDialog("Ingrese el nuevo estado del camion");
+                            if (!nuevoEstado.isEmpty()) {
+                                camionEncontrado.updateCamionEstado(camionIdToSearch2, nuevoEstado);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El valor no puede ser un texto vacío");
+                            }
+                            break;
+                        case "Salir":
+                            break; 
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Camion no encontrado para la ID proporcionada");
+                }
+            }
+        });
+
+
 
         JButton btnNewButton_2 = new JButton("Eliminar Camion");
         btnNewButton_2.addActionListener(new ActionListener() {
@@ -138,7 +218,7 @@ public class PantallaCamiones extends JFrame {
             }
         });
 
-        Validator validator = new Validator();
+        
 
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -150,7 +150,6 @@ public class Proveedor {
         try {
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setInt(1, productId);
-
             ResultSet resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {

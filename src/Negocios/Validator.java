@@ -3,6 +3,8 @@ import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.Connection;
+
 import DATA.Camion;
 import DATA.Producto;
 import DATA.Proveedor;
@@ -12,7 +14,7 @@ public class Validator {
     User Verificador = new User("","",0);
     Producto Verificador1 = new Producto("",null, 0,0, 0);
     Proveedor Verificador2 = new Proveedor("","","", null, null, null, 0);
-    Camion Verificador3 = new Camion("","",0,"",0,"","");
+    Camion Verificador3 = new Camion("", "", 0, "", 0, "", "");
    
     public boolean ValidarRegistro(String email, String password, int role_id) {
     	if (email.length() == 0 || password.length() == 0 || email.matches("^[0-9]+$")) {
@@ -98,8 +100,16 @@ public class Validator {
 		return Verificador2;
 	}
 
-	public void setVerificador2(Producto verificador2) {
-		Verificador1 = verificador2;
+	public void setVerificador2(Proveedor verificador2) {
+		Verificador2 = verificador2;
+	}
+	
+	public Camion getVerificador3() {
+		return Verificador3;
+	}
+
+	public void setVerificador3(Camion verificador3) {
+		Verificador3 = verificador3;
 	}
 	
 	
@@ -141,6 +151,11 @@ public class Validator {
     }
 	
 	
+
+	
+	
+	
+	
 	public boolean ValidarIngresoCamion(String modelo, String marca, int capacidadCargaKg, 
 	        String tipoCombustible, int añoFabricacion, String placa, String estado) {
 	    if (placa.length() == 0 || modelo.length() == 0 || marca.length() == 0 ||
@@ -164,6 +179,20 @@ public class Validator {
 	        }
 	    }
 	}
+	
+	public boolean ValidarBusquedaCamionId(int camionId) {
+		
+	    Verificador3.setId(camionId);
+
+	    if (Verificador3.findCamionById(camionId)) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+
+	
+	
 
     
     
