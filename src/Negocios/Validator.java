@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import com.mysql.jdbc.Connection;
 
 import DATA.Camion;
+import DATA.Pedido;
 import DATA.Producto;
 import DATA.Proveedor;
 import DATA.User;
@@ -194,7 +195,31 @@ public class Validator {
 	
 	
 
-    
+	public static boolean validatePedido(Pedido pedido) {
+        if (pedido.getOrigen() == null || pedido.getOrigen().trim().isEmpty()) {
+           JOptionPane.showMessageDialog(null, "Error: El origen no puede estar vacio");
+            return false;
+        }
+
+        if (pedido.getDestino() == null || pedido.getDestino().trim().isEmpty()) {
+        	JOptionPane.showMessageDialog(null, "Error: El Destino no puede estar vacio");
+            return false;
+        }
+
+        if (pedido.getId_camion() <= 0) {
+            System.out.println("Error: ID del camión debe ser mayor que cero.");
+            return false;
+        }
+
+        if (pedido.getEstado() == null || pedido.getEstado().trim().isEmpty()) {
+        	JOptionPane.showMessageDialog(null, "Error: El estado no puede estar vacio");
+            return false;
+        }
+
+        
+
+        return true;
+    }
     
     
 

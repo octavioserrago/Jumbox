@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 
@@ -363,6 +366,26 @@ public class Proveedor {
 	        return false;
 	    }
 	}
+	
+	public List<String> obtenerNombresProveedores() {
+        List<String> nombresProveedores = new ArrayList<>();
+
+        String sql = "SELECT nombre FROM Proveedor";
+
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                String nombreProveedor = resultSet.getString("nombre");
+                nombresProveedores.add(nombreProveedor);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener los nombres de los proveedores: " + e.getMessage());
+        }
+
+        return nombresProveedores;
+    }
 
 	
 	

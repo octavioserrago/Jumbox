@@ -44,13 +44,19 @@ public class PantallaPedidos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Ingresar Compra");
+		JButton btnNewButton = new JButton("Cargar Pedido");
 		btnNewButton.setBounds(174, 66, 134, 29);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Ingresar Venta");
-		btnNewButton_1.setBounds(184, 96, 117, 29);
-		contentPane.add(btnNewButton_1);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+            public void actionPerformed(ActionEvent e) {
+                PantallaCargaPedido pantallaCargaFrame = new PantallaCargaPedido();
+                pantallaCargaFrame.setVisible(true);
+                dispose();
+            }
+        });
+		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("/Users/octavioserrago/Documents/Da Vinci/3er cuatri/Programacion Avanzada/Jumbox/src/img/jumbox-grande.png"));
@@ -69,6 +75,14 @@ public class PantallaPedidos extends JFrame {
 	            public void actionPerformed(ActionEvent e) {
 	                PantallaHome pantallaHomeFrame = new PantallaHome();
 	                pantallaHomeFrame.setVisible(true);
+	                dispose();
+	            }
+	        });
+		 
+		 btnNewButton_3.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                PantallaHistorialPedido pantallaHistorial = new PantallaHistorialPedido();
+	                pantallaHistorial.setVisible(true);
 	                dispose();
 	            }
 	        });

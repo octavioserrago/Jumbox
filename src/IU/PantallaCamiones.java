@@ -43,18 +43,18 @@ public class PantallaCamiones extends JFrame {
 
     public PantallaCamiones() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 552, 300);
+        setBounds(100, 100, 689, 436);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         JButton btnNewButton = new JButton("Ingresar Nuevo Camion");
-        btnNewButton.setBounds(6, 179, 177, 29);
+        btnNewButton.setBounds(63, 325, 177, 29);
         contentPane.add(btnNewButton);
 
         JButton btnNewButton_1 = new JButton("Modificar Dato de Camion");
-        btnNewButton_1.setBounds(352, 179, 194, 29);
+        btnNewButton_1.setBounds(510, 325, 194, 29);
         contentPane.add(btnNewButton_1);
         
         Validator validator = new Validator();
@@ -152,15 +152,19 @@ public class PantallaCamiones extends JFrame {
             }
         });
 
-        btnNewButton_2.setBounds(199, 179, 141, 29);
+        btnNewButton_2.setBounds(329, 325, 141, 29);
         contentPane.add(btnNewButton_2);
 
         JButton btnNewButton_3 = new JButton("Volver");
-        btnNewButton_3.setBounds(225, 226, 117, 29);
+        btnNewButton_3.setBounds(341, 373, 117, 29);
         contentPane.add(btnNewButton_3);
 
         
         DefaultTableModel model = new DefaultTableModel();
+
+        table = new JTable(model);
+        table.setBounds(6, 41, 698, 255);
+        
         model.addColumn("id");
         model.addColumn("modelo");
         model.addColumn("marca");
@@ -169,10 +173,7 @@ public class PantallaCamiones extends JFrame {
         model.addColumn("anioFabricacion");
         model.addColumn("placa");
         model.addColumn("estado");
-
-        table = new JTable(model);
-        table.setBounds(6, 41, 540, 126);
-        contentPane.add(table);
+        
         
         
         
@@ -184,6 +185,8 @@ public class PantallaCamiones extends JFrame {
         DatabaseConnection con = new DatabaseConnection();
         Connection connection = con.conectar();
         PreparedStatement stmt = null;
+        
+     
 
         try {
             String sql = "SELECT * FROM Camion";
@@ -205,9 +208,10 @@ public class PantallaCamiones extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
+        contentPane.add(table);
         JLabel lblNewLabel = new JLabel("Camiones");
-        lblNewLabel.setBounds(244, 13, 67, 16);
+        lblNewLabel.setBounds(352, 16, 67, 16);
         contentPane.add(lblNewLabel);
 
         btnNewButton_3.addActionListener(new ActionListener() {
