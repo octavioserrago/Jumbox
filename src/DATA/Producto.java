@@ -316,6 +316,48 @@ public class Producto {
 	        return false;
 	    }
 	}
+	
+	public List<String> obtenerIdNombresProductos() {
+        List<String> idNombresProductos = new ArrayList<>();
+
+        String sql = "SELECT id, descripcion FROM Producto"; 
+
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                int idProducto = resultSet.getInt("id");
+                String nombreProducto = resultSet.getString("descripcion");
+                String idNombreProducto = idProducto + " - " + nombreProducto;
+                idNombresProductos.add(idNombreProducto);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener los ID y nombres de los productos: " + e.getMessage());
+        }
+
+        return idNombresProductos;
+    }
+	
+	 public int obtenerCantidadDisponible(int idProducto) {
+	        int cantidadDisponible = 0;
+
+	        String sql = "SELECT cantidad FROM Stock WHERE idProducto = ?";
+	        try {
+	            PreparedStatement stmt = conexion.prepareStatement(sql);
+	            stmt.setInt(1, idProducto);
+	            ResultSet resultSet = stmt.executeQuery();
+	            if (resultSet.next()) {
+	                cantidadDisponible = resultSet.getInt("cantidad");
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Error al obtener la cantidad disponible del producto: " + e.getMessage());
+	        }
+	        return cantidadDisponible;
+	    }
+
+   
+
 
 
 

@@ -186,5 +186,33 @@ public class Pedido {
 
         return pedidos;
     }
+	
+	
+	public List<String> obtenerIdPedidos() {
+	    List<String> IdPedidos = new ArrayList<>();
+
+	    try {
+	        if (conexion == null || conexion.isClosed()) {
+	            System.out.println("Conexión cerrada o no inicializada.");
+	        }
+
+	        String sql = "SELECT id FROM Pedido";
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        ResultSet resultSet = stmt.executeQuery();
+
+	        while (resultSet.next()) {
+	            int IdPedido = resultSet.getInt("id");
+
+	            String strIdPedido = String.valueOf(IdPedido);
+	            IdPedidos.add(strIdPedido);
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al obtener los ID de los pedidos: " + e.getMessage());
+	    }
+
+	    return IdPedidos;
+	}
+
 }
 

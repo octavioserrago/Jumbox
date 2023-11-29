@@ -50,6 +50,14 @@ public class PantallaVenta extends JFrame {
 		btnNewButton.setBounds(252, 107, 117, 29);
 		contentPane.add(btnNewButton);
 		
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PantallaCargarVenta pantallaCargarVenta = new PantallaCargarVenta();
+                pantallaCargarVenta.setVisible(true);
+                dispose();
+            }
+        });
+		
 		JButton btnNewButton_1 = new JButton("Filtrar ventas");
 		btnNewButton_1.setBounds(252, 164, 117, 29);
 		contentPane.add(btnNewButton_1);

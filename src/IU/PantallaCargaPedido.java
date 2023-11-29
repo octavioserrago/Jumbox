@@ -1,8 +1,11 @@
 package IU;
 
 import java.awt.EventQueue;
+import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -20,6 +23,10 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JRadioButton;
+import java.awt.Checkbox;
+import java.awt.Font;
+import javax.swing.JCheckBox;
 
 public class PantallaCargaPedido extends JFrame {
 
@@ -63,7 +70,7 @@ public class PantallaCargaPedido extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Destino: ");
-		lblNewLabel_1.setBounds(6, 64, 61, 16);
+		lblNewLabel_1.setBounds(6, 48, 61, 16);
 		contentPane.add(lblNewLabel_1);
 		
 		Proveedor proveedor = new Proveedor("","","","","","",0);
@@ -77,9 +84,7 @@ public class PantallaCargaPedido extends JFrame {
             comboBox.addItem(nombre);
         }
 
-		JLabel lblNewLabel_2 = new JLabel("Proveedor:");
-		lblNewLabel_2.setBounds(6, 103, 72, 16);
-		contentPane.add(lblNewLabel_2);
+		
 		
 		textField = new JTextField();
 		textField.setBounds(77, 15, 130, 26);
@@ -87,7 +92,7 @@ public class PantallaCargaPedido extends JFrame {
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(79, 59, 130, 26);
+		textField_1.setBounds(79, 43, 130, 26);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -101,11 +106,11 @@ public class PantallaCargaPedido extends JFrame {
 		textField_2.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Estado:");
-		lblNewLabel_4.setBounds(243, 64, 61, 16);
+		lblNewLabel_4.setBounds(243, 48, 61, 16);
 		contentPane.add(lblNewLabel_4);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(293, 59, 130, 26);
+		textField_3.setBounds(293, 43, 130, 26);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
@@ -147,6 +152,13 @@ public class PantallaCargaPedido extends JFrame {
 		lblNewLabel_6.setVisible(false);
 		lblNewLabel_7.setVisible(false);
 		
+		JLabel lblNewLabel_2 = new JLabel("Proveedor:");
+		lblNewLabel_2.setBounds(6, 103, 72, 16);
+		contentPane.add(lblNewLabel_2);
+		
+		lblNewLabel_2.setVisible(false);
+		comboBox.setVisible(false);
+		
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
@@ -176,7 +188,29 @@ public class PantallaCargaPedido extends JFrame {
 		        }
 		    }
 		});
+		
+		
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Es una compra de Jumbox?");
+		chckbxNewCheckBox.setBounds(6, 76, 204, 23);
+		contentPane.add(chckbxNewCheckBox);
+		
+		chckbxNewCheckBox.addItemListener(new ItemListener() {
 
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(chckbxNewCheckBox.isSelected()) {
+					lblNewLabel_2.setVisible(true);
+					comboBox.setVisible(true);
+				} else {
+					lblNewLabel_2.setVisible(false);
+					comboBox.setVisible(false);
+				}
+			}
+			
+		});
+		
+		
 		
 		
 	}
