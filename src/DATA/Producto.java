@@ -339,22 +339,47 @@ public class Producto {
         return idNombresProductos;
     }
 	
-	 public int obtenerCantidadDisponible(int idProducto) {
-	        int cantidadDisponible = 0;
+	public int obtenerCantidadDisponible(int idProducto) {
+	    int cantidadDisponible = 0;
 
-	        String sql = "SELECT cantidad FROM Stock WHERE idProducto = ?";
-	        try {
-	            PreparedStatement stmt = conexion.prepareStatement(sql);
-	            stmt.setInt(1, idProducto);
-	            ResultSet resultSet = stmt.executeQuery();
-	            if (resultSet.next()) {
-	                cantidadDisponible = resultSet.getInt("cantidad");
-	            }
-	        } catch (SQLException e) {
-	            System.out.println("Error al obtener la cantidad disponible del producto: " + e.getMessage());
+	    String sql = "SELECT cantidad FROM Producto WHERE id = ?";
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idProducto);
+	        ResultSet resultSet = stmt.executeQuery();
+	        if (resultSet.next()) {
+	            cantidadDisponible = resultSet.getInt("cantidad");
 	        }
-	        return cantidadDisponible;
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener la cantidad disponible del producto: " + e.getMessage());
 	    }
+	    return cantidadDisponible;
+	}
+
+	public boolean actualizarCantidadDisponible(int idProducto, int cantidadVendida) {
+	    int cantidadActual = obtenerCantidadDisponible(idProducto);
+	    int nuevaCantidad = cantidadActual - cantidadVendida;
+
+	    if (nuevaCantidad < 0) {
+	        System.out.println("Error: La cantidad vendida es mayor que la cantidad disponible.");
+	        return false;
+	    }
+
+	    String sql = "UPDATE Producto SET cantidad = ? WHERE id = ?";
+
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, nuevaCantidad);
+	        stmt.setInt(2, idProducto);
+
+	        int rowsAffected = stmt.executeUpdate();
+
+	        return rowsAffected > 0;
+	    } catch (Exception e) {
+	        System.out.println("Error al actualizar la cantidad del producto por ID: " + e.getMessage());
+	        return false;
+	    }
+	}
 
    
 

@@ -3,15 +3,18 @@ package IU;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DATA.DatabaseConnection;
 import DATA.Pedido;
 
 public class PantallaHistorialPedido extends JFrame {
@@ -41,27 +44,21 @@ public class PantallaHistorialPedido extends JFrame {
      */
     public PantallaHistorialPedido() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 400);
+        setBounds(100, 100, 680, 464);
         contentPane = new JPanel();
-        contentPane.setLayout(null);
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-
-        JButton btnNewButton = new JButton("Volver");
-        btnNewButton.setBounds(450, 300, 117, 29);
-        contentPane.add(btnNewButton);
-
-        JLabel lblNewLabel = new JLabel("Historial de Pedidos");
-        lblNewLabel.setBounds(250, 14, 150, 16);
-        contentPane.add(lblNewLabel);
+        contentPane.setLayout(null);
 
         table = new JTable();
-        table.setBounds(20, 30, 550, 250);
-        contentPane.add(table);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(20, 30, 654, 350);
+        contentPane.add(scrollPane);
 
-       
-        String[] columnas = {"ID", "Origen", "Destino", "ID Proveedor", "ID Camión", "Estado", "Descripción"};
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
-        table.setModel(modeloTabla);
+        JButton btnNewButton = new JButton("Volver");
+        btnNewButton.setBounds(270, 401, 117, 29);
+        contentPane.add(btnNewButton);
+
         cargarDatosTabla();
 
         btnNewButton.addActionListener(new ActionListener() {
@@ -74,20 +71,40 @@ public class PantallaHistorialPedido extends JFrame {
     }
 
     private void cargarDatosTabla() {
-        List<Pedido> pedidos = Pedido.obtenerTodosPedidos();
-        for (Pedido pedido : pedidos) {
-            Object[] fila = {
-                pedido.getId(),
-                pedido.getOrigen(),
-                pedido.getDestino(),
-                pedido.getId_proveedor(),  
-                pedido.getId_camion(),    
-                pedido.getEstado(),
-                pedido.getDescripcion()
-            };
-            ((DefaultTableModel) table.getModel()).addRow(fila);
-        }
-    }
+    	
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Origen");
+        modeloTabla.addColumn("Destino");
+        modeloTabla.addColumn("ID Proveedor");
+        modeloTabla.addColumn("ID Camión");
+        modeloTabla.addColumn("Estado");
+        modeloTabla.addColumn("Descripción");
 
+        DatabaseConnection con = new DatabaseConnection();
+        Connection connection = con.conectar();
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "SELECT * FROM Pedido";
+            stmt = connection.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                modeloTabla.addRow(new Object[] { resultSet.getInt("id"), resultSet.getString("origen"),
+                        resultSet.getString("destino"), resultSet.getInt("id_proveedor"),
+                        resultSet.getInt("id_camion"), resultSet.getString("estado"),
+                        resultSet.getString("descripcion") });
+            }
+
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        table.setModel(modeloTabla);
+    }
 }
+
 

@@ -2,6 +2,8 @@ package DATA;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Venta {
 	private int id;
@@ -74,7 +76,27 @@ public class Venta {
 			return false;
 		}
 	}
-	
+
+	public int obtenerCantidadVendida(int idVenta, int idProducto) {
+	    int cantidadVendida = 0;
+
+	    String sql = "SELECT Cantidad FROM Venta WHERE id = ? AND ID_Producto = ?";
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idVenta);
+	        stmt.setInt(2, idProducto);
+	        ResultSet resultSet = stmt.executeQuery();
+
+	        if (resultSet.next()) {
+	            cantidadVendida = resultSet.getInt("Cantidad");
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener la cantidad vendida de la venta: " + e.getMessage());
+	    }
+
+	    return cantidadVendida;
+	}
+
 	
 	
 	

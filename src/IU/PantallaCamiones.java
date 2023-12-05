@@ -4,12 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DATA.Camion;
 import DATA.DatabaseConnection;
-import DATA.Proveedor;
 import Negocios.Validator;
 
 import javax.swing.JButton;
@@ -42,8 +42,9 @@ public class PantallaCamiones extends JFrame {
     }
 
     public PantallaCamiones() {
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 689, 436);
+        setBounds(100, 100, 800, 464);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -56,17 +57,17 @@ public class PantallaCamiones extends JFrame {
         JButton btnNewButton_1 = new JButton("Modificar Dato de Camion");
         btnNewButton_1.setBounds(510, 325, 194, 29);
         contentPane.add(btnNewButton_1);
-        
+
         Validator validator = new Validator();
-        
+
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String opcion3;
-                int camionIdToSearch2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id de camion que desea buscar")); 
+                int camionIdToSearch2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id de camion que desea buscar"));
                 boolean busquedaValida5 = validator.ValidarBusquedaCamionId(camionIdToSearch2);
 
                 if (busquedaValida5) {
-                	Camion camionEncontrado = validator.getVerificador3();
+                    Camion camionEncontrado = validator.getVerificador3();
                     JOptionPane.showMessageDialog(null, "Camion encontrado! " + camionEncontrado.toString());
 
                     String[] opcionesCamion = {"Modelo", "Marca", "Capacidad de Carga", "Tipo de Combustible",
@@ -126,7 +127,7 @@ public class PantallaCamiones extends JFrame {
                             }
                             break;
                         case "Salir":
-                            break; 
+                            break;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Camion no encontrado para la ID proporcionada");
@@ -134,12 +135,9 @@ public class PantallaCamiones extends JFrame {
             }
         });
 
-
-
         JButton btnNewButton_2 = new JButton("Eliminar Camion");
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 Camion camionEliminar = new Camion(null,null,0,null,0,null,null);
                 String placa1;
                 int id;
@@ -160,56 +158,15 @@ public class PantallaCamiones extends JFrame {
         contentPane.add(btnNewButton_3);
 
         
-        DefaultTableModel model = new DefaultTableModel();
+        table = new JTable();
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(26, 41, 743, 260);
+        contentPane.add(scrollPane);
 
-        table = new JTable(model);
-        table.setBounds(6, 41, 698, 255);
-        
-        model.addColumn("id");
-        model.addColumn("modelo");
-        model.addColumn("marca");
-        model.addColumn("capacidadCargaKg");
-        model.addColumn("tipoCombustible");
-        model.addColumn("anioFabricacion");
-        model.addColumn("placa");
-        model.addColumn("estado");
-        
-        
-        
-        
-        table.setModel(model);
+        cargarDatosCamion();
 
-        
-        
+       
 
-        DatabaseConnection con = new DatabaseConnection();
-        Connection connection = con.conectar();
-        PreparedStatement stmt = null;
-        
-     
-
-        try {
-            String sql = "SELECT * FROM Camion";
-            stmt = connection.prepareStatement(sql);
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()) {
-                model.addRow(new Object[] { resultSet.getInt("id"), resultSet.getString("modelo"),
-                        resultSet.getString("marca"), resultSet.getInt("capacidadCargaKg"),
-                        resultSet.getString("tipoCombustible"), resultSet.getInt("anioFabricacion"), resultSet.getString("placa"), resultSet.getString("estado")});
-            }
-
-            stmt.close();
-            connection.close();
-
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        contentPane.add(table);
         JLabel lblNewLabel = new JLabel("Camiones");
         lblNewLabel.setBounds(352, 16, 67, 16);
         contentPane.add(lblNewLabel);
@@ -222,11 +179,8 @@ public class PantallaCamiones extends JFrame {
             }
         });
 
-        
-
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 String modelo, marca, tipoCombustible, placa, estado;
 
                 int capacidadCargaKg, añoFabricacion;
@@ -254,6 +208,44 @@ public class PantallaCamiones extends JFrame {
             }
         });
     }
-}
 
+    private void cargarDatosCamion() {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Modelo");
+        modeloTabla.addColumn("Marca");
+        modeloTabla.addColumn("Capacidad de Carga");
+        modeloTabla.addColumn("Tipo de Combustible");
+        modeloTabla.addColumn("Año de Fabricacion");
+        modeloTabla.addColumn("Placa");
+        modeloTabla.addColumn("Estado");
+
+        DatabaseConnection con = new DatabaseConnection();
+        Connection connection = con.conectar();
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "SELECT * FROM Camion";
+            stmt = connection.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                modeloTabla.addRow(new Object[] { resultSet.getInt("id"), resultSet.getString("modelo"),
+                        resultSet.getString("marca"), resultSet.getInt("capacidadCargaKg"),
+                        resultSet.getString("tipoCombustible"), resultSet.getInt("anioFabricacion"),
+                        resultSet.getString("placa"), resultSet.getString("estado") });
+            }
+
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar datos de Camion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+        table.setModel(modeloTabla);
+    }
+
+
+}
 

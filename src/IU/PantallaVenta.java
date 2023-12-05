@@ -47,7 +47,7 @@ public class PantallaVenta extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Cargar Venta");
-		btnNewButton.setBounds(252, 107, 117, 29);
+		btnNewButton.setBounds(252, 73, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -58,9 +58,20 @@ public class PantallaVenta extends JFrame {
             }
         });
 		
-		JButton btnNewButton_1 = new JButton("Filtrar ventas");
-		btnNewButton_1.setBounds(252, 164, 117, 29);
+		JButton btnNewButton_1 = new JButton("Cancelar Venta");
+		btnNewButton_1.setBounds(252, 126, 117, 29);
 		contentPane.add(btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PantallaCancelarVenta pantallaCancelarVenta = new PantallaCancelarVenta();
+                pantallaCancelarVenta.setVisible(true);
+                dispose();
+            }
+        });
+		
+		
+		
 		
 		JButton btnNewButton_2 = new JButton("Volver");
 		btnNewButton_2.setBounds(235, 276, 117, 29);
