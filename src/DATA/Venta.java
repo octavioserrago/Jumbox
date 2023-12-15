@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Venta {
 	private int id;
 	private int ID_Pedido;
 	private int ID_Producto;
 	private int cantidad;
+	private String ProductoDescripcion;
+	private double PrecioVentaUnitaria;
 	
 	public Venta(int iD_Pedido, int iD_Producto, int cantidad) {
 		super();
@@ -48,6 +52,22 @@ public class Venta {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public String getProductoDescripcion() {
+		return ProductoDescripcion;
+	}
+
+	public void setProductoDescripcion(String productoDescripcion) {
+		ProductoDescripcion = productoDescripcion;
+	}
+
+	public double getPrecioVentaUnitaria() {
+		return PrecioVentaUnitaria;
+	}
+
+	public void setPrecioVentaUnitaria(double precioVentaUnitaria) {
+		PrecioVentaUnitaria = precioVentaUnitaria;
 	}
 
 	@Override
@@ -96,8 +116,104 @@ public class Venta {
 
 	    return cantidadVendida;
 	}
+	
+	public Venta obtenerDetallesVenta(int idVenta) {
+	    Venta detallesVenta = new Venta(0, 0, 0);
 
-	
-	
-	
+	    String sql = "SELECT v.ID_Producto, p.descripcion AS producto_descripcion, v.Cantidad, p.precioVentaUnitaria " +
+	              "FROM Venta v " +
+	              "JOIN Producto p ON v.ID_Producto = p.id " +
+	              "WHERE v.id = ?";
+
+
+
+	                 
+	    try {
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idVenta);
+	        ResultSet resultSet = stmt.executeQuery();
+
+	        if (resultSet.next()) {
+	            detallesVenta.setID_Producto(resultSet.getInt("ID_Producto"));
+	            detallesVenta.setProductoDescripcion(resultSet.getString("producto_descripcion"));
+	            detallesVenta.setCantidad(resultSet.getInt("Cantidad"));
+	            detallesVenta.setPrecioVentaUnitaria(resultSet.getDouble("precioVentaUnitaria"));
+
+	           
+	            System.out.println("ID_Producto: " + detallesVenta.getID_Producto());
+	            System.out.println("Descripción: " + detallesVenta.getProductoDescripcion());
+	            System.out.println("Cantidad: " + detallesVenta.getCantidad());
+	            System.out.println("Precio Unitaria: " + detallesVenta.getPrecioVentaUnitaria());
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener detalles de la venta: " + e.getMessage());
+	    }
+
+	    return detallesVenta;
+	}
+
+	 public List<Integer> obtenerIdsVenta(int idPedido) {
+	        List<Integer> idsVenta = new ArrayList<>();
+
+	        String sql = "SELECT id FROM Venta WHERE ID_Pedido = ?";
+	        try {
+	            PreparedStatement stmt = conexion.prepareStatement(sql);
+	            stmt.setInt(1, idPedido);
+	            ResultSet resultSet = stmt.executeQuery();
+
+	            while (resultSet.next()) {
+	                idsVenta.add(resultSet.getInt("id"));
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Error al obtener IDs de Venta: " + e.getMessage());
+	        }
+
+	        return idsVenta;
+	    }
+	 
+	 public boolean cancelarVenta(int idVenta) {
+	        String sql = "DELETE FROM Venta WHERE id = ?";
+
+	        try {
+	            PreparedStatement stmt = conexion.prepareStatement(sql);
+	            stmt.setInt(1, idVenta);
+	            int rowsAffected = stmt.executeUpdate();
+	            stmt.close();
+	            return rowsAffected > 0;
+	        } catch (SQLException e) {
+	            System.out.println("Error al cancelar la venta: " + e.getMessage());
+	            return false;
+	        }
+	    }
+	 
+	 public List<Venta> obtenerTodasLasVentas() {
+	        List<Venta> ventas = new ArrayList<>();
+
+	        String sql = "SELECT v.id, v.ID_Pedido, p.descripcion AS producto_descripcion, v.Cantidad " +
+	                     "FROM Venta v " +
+	                     "JOIN Producto p ON v.ID_Producto = p.id";
+
+	        try {
+	            PreparedStatement stmt = conexion.prepareStatement(sql);
+	            ResultSet resultSet = stmt.executeQuery();
+
+	            while (resultSet.next()) {
+	                Venta venta = new Venta(
+	                        resultSet.getInt("ID_Pedido"),
+	                        0,
+	                        resultSet.getInt("Cantidad")
+	                );
+
+	                venta.setId(resultSet.getInt("id"));
+	                venta.setProductoDescripcion(resultSet.getString("producto_descripcion"));
+
+	                ventas.add(venta);
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Error al obtener todas las ventas: " + e.getMessage());
+	        }
+
+	        return ventas;
+	    }
+
 }

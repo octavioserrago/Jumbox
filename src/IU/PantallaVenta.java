@@ -47,7 +47,7 @@ public class PantallaVenta extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Cargar Venta");
-		btnNewButton.setBounds(252, 73, 117, 29);
+		btnNewButton.setBounds(253, 127, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -59,7 +59,7 @@ public class PantallaVenta extends JFrame {
         });
 		
 		JButton btnNewButton_1 = new JButton("Cancelar Venta");
-		btnNewButton_1.setBounds(252, 126, 117, 29);
+		btnNewButton_1.setBounds(326, 178, 117, 29);
 		contentPane.add(btnNewButton_1);
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -89,5 +89,18 @@ public class PantallaVenta extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon("/Users/octavioserrago/Documents/Da Vinci/3er cuatri/Programacion Avanzada/Jumbox/src/img/jumbox-grande.png"));
 		lblNewLabel.setBounds(112, 107, 100, 100);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton_3 = new JButton("Ver Ventas");
+		btnNewButton_3.setBounds(397, 127, 117, 29);
+		contentPane.add(btnNewButton_3);
+		
+		
+		btnNewButton_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PantallaVerVentas pantallaVerVentas = new PantallaVerVentas();
+                pantallaVerVentas.setVisible(true);
+                dispose();
+            }
+        });
 	}
 }

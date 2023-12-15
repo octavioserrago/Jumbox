@@ -68,8 +68,19 @@ public class PantallaPedidos extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Historial de Pedidos");
-		btnNewButton_3.setBounds(153, 127, 170, 29);
+		btnNewButton_3.setBounds(218, 107, 170, 29);
 		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_1 = new JButton("Detalle Pedido");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	                PantallaDetallePedido pantallaDetalleFrame = new PantallaDetallePedido();
+	                pantallaDetalleFrame.setVisible(true);
+	                dispose();
+			}
+		});
+		btnNewButton_1.setBounds(310, 66, 117, 29);
+		contentPane.add(btnNewButton_1);
 		
 		 btnNewButton_2.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
