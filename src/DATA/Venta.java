@@ -170,21 +170,73 @@ public class Venta {
 
 	        return idsVenta;
 	    }
-	 
 	 public boolean cancelarVenta(int idVenta) {
-	        String sql = "DELETE FROM Venta WHERE id = ?";
+		
+		    String sqlProducto = "UPDATE Producto P, Venta V " +
+		                        "SET P.cantidad = P.cantidad + V.Cantidad " +
+		                        "WHERE P.id = V.ID_Producto AND V.id = ?";
+		    
+		    String sqlVenta = "DELETE FROM Venta WHERE id = ?";
 
-	        try {
-	            PreparedStatement stmt = conexion.prepareStatement(sql);
-	            stmt.setInt(1, idVenta);
-	            int rowsAffected = stmt.executeUpdate();
-	            stmt.close();
-	            return rowsAffected > 0;
-	        } catch (SQLException e) {
-	            System.out.println("Error al cancelar la venta: " + e.getMessage());
-	            return false;
-	        }
-	    }
+		    try {
+		       
+		        System.out.println("Cancelando venta con ID: " + idVenta);
+
+		     
+		        PreparedStatement stmtProducto = conexion.prepareStatement(sqlProducto);
+		        stmtProducto.setInt(1, idVenta);
+		        int rowsAffectedProducto = stmtProducto.executeUpdate();
+		        stmtProducto.close();
+
+		       
+		        System.out.println("Filas afectadas en Producto: " + rowsAffectedProducto);
+
+		        if (rowsAffectedProducto > 0) {
+		          
+		            System.out.println("Venta cancelada, actualizando stock...");
+
+		            PreparedStatement stmtVenta = conexion.prepareStatement(sqlVenta);
+		            stmtVenta.setInt(1, idVenta);
+		            int rowsAffectedVenta = stmtVenta.executeUpdate();
+		            stmtVenta.close();
+
+
+		            System.out.println("Filas afectadas en Venta: " + rowsAffectedVenta);
+
+		            return rowsAffectedVenta > 0;
+		        } else {
+		            
+		            System.out.println("No se encontró la venta con ID: " + idVenta);
+		            return false;
+		        }
+		    } catch (SQLException e) {
+		        
+		        System.out.println("Error al cancelar la venta: " + e.getMessage());
+		        e.printStackTrace();  
+		        return false;
+		    }
+		}
+
+
+		private int obtenerCantidadVendida(int idVenta) {
+		    int cantidadVendida = 0;
+
+		    String sql = "SELECT Cantidad FROM Venta WHERE id = ?";
+		    try {
+		        PreparedStatement stmt = conexion.prepareStatement(sql);
+		        stmt.setInt(1, idVenta);
+		        ResultSet resultSet = stmt.executeQuery();
+
+		        if (resultSet.next()) {
+		            cantidadVendida = resultSet.getInt("Cantidad");
+		        }
+		    } catch (SQLException e) {
+		        System.out.println("Error al obtener la cantidad vendida de la venta: " + e.getMessage());
+		    }
+
+		    return cantidadVendida;
+		}
+
 	 
 	 public List<Venta> obtenerTodasLasVentas() {
 	        List<Venta> ventas = new ArrayList<>();
