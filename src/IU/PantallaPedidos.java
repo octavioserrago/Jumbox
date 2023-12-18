@@ -64,11 +64,11 @@ public class PantallaPedidos extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton_2 = new JButton("Volver");
-		btnNewButton_2.setBounds(174, 202, 117, 29);
+		btnNewButton_2.setBounds(174, 211, 117, 29);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Historial de Pedidos");
-		btnNewButton_3.setBounds(218, 107, 170, 29);
+		btnNewButton_3.setBounds(212, 148, 170, 29);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_1 = new JButton("Detalle Pedido");
@@ -81,6 +81,31 @@ public class PantallaPedidos extends JFrame {
 		});
 		btnNewButton_1.setBounds(310, 66, 117, 29);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_4 = new JButton("Eliminar Pedido");
+		btnNewButton_4.setBounds(307, 107, 137, 29);
+		contentPane.add(btnNewButton_4);
+		
+		btnNewButton_4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	
+            	
+            }
+        });
+		
+		JButton btnNewButton_5 = new JButton("Actualizar Estado");
+		btnNewButton_5.setBounds(145, 107, 163, 29);
+		contentPane.add(btnNewButton_5);
+		
+		btnNewButton_5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	
+            	
+            }
+        });
+	 
 		
 		 btnNewButton_2.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
