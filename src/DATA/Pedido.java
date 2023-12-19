@@ -3,6 +3,7 @@ package DATA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,15 +205,20 @@ public class Pedido {
 	            int IdPedido = resultSet.getInt("id");
 
 	            String strIdPedido = String.valueOf(IdPedido);
+	            System.out.println("ID recuperada: " + strIdPedido); 
 	            IdPedidos.add(strIdPedido);
 	        }
 
+	        System.out.println("Total de IDs recuperadas: " + IdPedidos.size()); 
+
 	    } catch (Exception e) {
 	        System.out.println("Error al obtener los ID de los pedidos: " + e.getMessage());
+	        e.printStackTrace(); 
 	    }
 
 	    return IdPedidos;
 	}
+
 	
 	public List<String> obtenerIdPedidosVentas() {
 	    List<String> IdPedidos = new ArrayList<>();
@@ -240,7 +246,32 @@ public class Pedido {
 
 	    return IdPedidos;
 	}
-	
+
+	public void actualizarEstadoPedido(int idPedido, String nuevoEstado) {
+        try {
+            if (conexion == null || conexion.isClosed()) {
+                System.out.println("Conexión cerrada o no inicializada.");
+            }
+
+            String sql = "UPDATE Pedido SET estado = ? WHERE id = ?";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+
+            stmt.setString(1, nuevoEstado);
+            stmt.setInt(2, idPedido);
+
+           
+            int filasAfectadas = stmt.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Pedido actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el pedido.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el estado del pedido: " + e.getMessage());
+        }
+    }
 	
 
 	

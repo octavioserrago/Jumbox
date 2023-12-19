@@ -100,9 +100,10 @@ public class PantallaPedidos extends JFrame {
 		
 		btnNewButton_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
             	
-            	
+                VentanaActualizarPedido pantallaActualizarPedido = new VentanaActualizarPedido();
+                pantallaActualizarPedido.setVisible(true);
+                dispose();
             }
         });
 	 

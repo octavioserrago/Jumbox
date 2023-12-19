@@ -49,7 +49,7 @@ public class PantallaHome extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Pedidos");
-		btnNewButton_1.setBounds(261, 169, 117, 29);
+		btnNewButton_1.setBounds(261, 185, 117, 29);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Proveedores");
@@ -88,6 +88,21 @@ public class PantallaHome extends JFrame {
 		JButton btnNewButton_5 = new JButton("Ventas");
 		btnNewButton_5.setBounds(338, 103, 117, 29);
 		contentPane.add(btnNewButton_5);
+		
+		JButton btnNewButton_6 = new JButton("Caja");
+		btnNewButton_6.setBounds(261, 144, 117, 29);
+		contentPane.add(btnNewButton_6);
+		
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				PantallaCaja pantallaCaja = new PantallaCaja();
+				pantallaCaja.setVisible(true);
+				dispose();
+				
+			}
+		
+		});
 		
 		btnNewButton_5.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
@@ -143,5 +158,4 @@ public class PantallaHome extends JFrame {
 		    }
 		});
 	}
-
 }

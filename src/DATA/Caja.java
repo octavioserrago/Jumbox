@@ -70,22 +70,5 @@ public class Caja {
 
 
 
-	public boolean insertCaja() {
-		String sql = "INSERT INTO Caja (monto,tipo) VALUES (?, ARS)";
-		
-		
-		try {
-			stmt = conexion.prepareStatement(sql);
-			stmt.setDouble(1, this.getMonto());
-			stmt.setString(1, this.getTipo());
-			
-			int rowsAffected = stmt.executeUpdate();
-			return rowsAffected > 0;
-			
-		} catch (SQLException e) {
-			System.out.println("Error al insertar Valor a la caja: " + e.getMessage());
-			return false;
-		}
-	}
 }
 

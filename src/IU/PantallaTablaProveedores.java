@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
@@ -37,16 +38,13 @@ public class PantallaTablaProveedores extends JFrame {
 
     public PantallaTablaProveedores() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 603, 313);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        table = new JTable();
-        table.setBounds(0, 0, 450, 178);
-        contentPane.add(table);
-
+       
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("id");
         model.addColumn("nombre");
@@ -56,8 +54,15 @@ public class PantallaTablaProveedores extends JFrame {
         model.addColumn("numeroCuentaBancaria");
         model.addColumn("tiempoEntregaPromedioEnDias");
 
-        table.setModel(model);
+     
+        table = new JTable(model);
 
+       
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(10, 10, 570, 178);
+        contentPane.add(scrollPane);
+
+     
         DatabaseConnection con = new DatabaseConnection();
         Connection connection = con.conectar();
         PreparedStatement stmt = null;
@@ -90,8 +95,9 @@ public class PantallaTablaProveedores extends JFrame {
             }
         }
 
+        
         JButton btnNewButton = new JButton("Volver");
-        btnNewButton.setBounds(170, 202, 117, 29);
+        btnNewButton.setBounds(250, 225, 117, 29);
         contentPane.add(btnNewButton);
 
         btnNewButton.addActionListener(new ActionListener() {
