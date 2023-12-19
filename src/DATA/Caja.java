@@ -66,6 +66,22 @@ public class Caja {
     Connection conexion = con.conectar();
 	
 	PreparedStatement stmt;
+	
+	public boolean insertarRegistro() {
+        String sqlInsertCaja = "INSERT INTO Caja (monto, tipo) VALUES (?, ?)";
+
+        try {
+            PreparedStatement stmtInsertCaja = conexion.prepareStatement(sqlInsertCaja);
+            stmtInsertCaja.setDouble(1, this.getMonto());
+            stmtInsertCaja.setString(2, this.getTipo());
+
+            int rowsAffected = stmtInsertCaja.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 

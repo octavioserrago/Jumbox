@@ -52,7 +52,7 @@ public class PantallaCaja extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Volver");
-		btnNewButton.setBounds(155, 203, 117, 29);
+		btnNewButton.setBounds(165, 203, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -67,8 +67,23 @@ public class PantallaCaja extends JFrame {
 		});
 		
 		JButton btnNewButton_1 = new JButton("Registrar un Pago");
-		btnNewButton_1.setBounds(131, 173, 176, 29);
+		btnNewButton_1.setBounds(255, 141, 154, 29);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Ingresar Dinero");
+		btnNewButton_2.setBounds(41, 141, 141, 29);
+		contentPane.add(btnNewButton_2);
+		
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				PantallaIngresarDinero pantallaIngresarDinero = new PantallaIngresarDinero();
+				pantallaIngresarDinero.setVisible(true);
+				dispose();
+				
+			}
+		
+		});
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
