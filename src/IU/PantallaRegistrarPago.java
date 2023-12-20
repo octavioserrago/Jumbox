@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DATA.Pago;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
@@ -111,5 +114,52 @@ public class PantallaRegistrarPago extends JFrame {
 		
 		lblNewLabel_5.setVisible(false);
         lblNewLabel_4.setVisible(false);
+        
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                   
+                    String detalle = textPane.getText();
+                    String montoText = textField.getText();
+                    String acreedor = textField_1.getText();
+
+                    
+                    if (detalle.isEmpty() || montoText.isEmpty() || acreedor.isEmpty()) {
+                        lblNewLabel_4.setVisible(false);
+                        lblNewLabel_5.setVisible(true);
+                        return;
+                    }
+
+                   
+                    double monto = Double.parseDouble(montoText);
+                    if (monto < 0) {
+                        lblNewLabel_4.setVisible(false);
+                        lblNewLabel_5.setVisible(true);
+                        System.out.println("Error: El monto no puede ser negativo.");
+                        return;
+                    }
+
+                    
+                    Pago pago = new Pago(detalle, monto, acreedor);
+
+                    
+                    boolean pagoExitoso = pago.insertarPago();
+
+                
+                    if (pagoExitoso) {
+                        lblNewLabel_4.setVisible(true);
+                        lblNewLabel_5.setVisible(false);
+                    } else {
+                        lblNewLabel_4.setVisible(false);
+                        lblNewLabel_5.setVisible(true);
+                    }
+                } catch (NumberFormatException ex) {
+                    lblNewLabel_4.setVisible(false);
+                    lblNewLabel_5.setVisible(true);
+                    System.out.println("Error al convertir el monto a número: " + ex.getMessage());
+                }
+            }
+        });
+
 	}
 }

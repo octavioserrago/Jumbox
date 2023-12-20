@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DATA.Caja;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -97,6 +100,58 @@ public class PantallaIngresarDinero extends JFrame {
 		
 		lblNewLabel_4.setVisible(false);
 		lblNewLabel_3.setVisible(false);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		           
+		            String montoText = textField.getText();
+		            String detalle = textPane.getText();
+
+		            
+		            if (montoText.isEmpty()) {
+		                lblNewLabel_3.setVisible(false);
+		                lblNewLabel_4.setVisible(true);
+		                return;
+		            }
+		            
+		            if (detalle.isEmpty()) {
+		                lblNewLabel_3.setVisible(false);
+		                lblNewLabel_4.setVisible(true);
+		                return;
+		            }
+		            
+
+		    
+		            double monto = Double.parseDouble(montoText);
+		            if (monto < 0) {
+		                lblNewLabel_3.setVisible(false);
+		                lblNewLabel_4.setVisible(true);
+		                return;
+		            }
+
+		           
+		            Caja caja = new Caja(monto, detalle);
+		            boolean ingresoExitoso = caja.insertarRegistro();
+
+		           
+		            if (ingresoExitoso) {
+		                lblNewLabel_3.setVisible(true);
+		                lblNewLabel_4.setVisible(false);
+		            } else {
+		                lblNewLabel_3.setVisible(false);
+		                lblNewLabel_4.setVisible(true);
+		            }
+		        } catch (NumberFormatException ex) {
+		         
+		            lblNewLabel_3.setVisible(false);
+		            lblNewLabel_4.setVisible(true);
+		            System.out.println("Error al convertir el monto a número: " + ex.getMessage());
+		        }
+		    }
+		});
+
+
 		
 	}
 

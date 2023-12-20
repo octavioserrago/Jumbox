@@ -82,20 +82,8 @@ public class PantallaPedidos extends JFrame {
 		btnNewButton_1.setBounds(310, 66, 117, 29);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_4 = new JButton("Eliminar Pedido");
-		btnNewButton_4.setBounds(307, 107, 137, 29);
-		contentPane.add(btnNewButton_4);
-		
-		btnNewButton_4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            	
-            	
-            }
-        });
-		
 		JButton btnNewButton_5 = new JButton("Actualizar Estado");
-		btnNewButton_5.setBounds(145, 107, 163, 29);
+		btnNewButton_5.setBounds(212, 107, 163, 29);
 		contentPane.add(btnNewButton_5);
 		
 		btnNewButton_5.addActionListener(new ActionListener() {
